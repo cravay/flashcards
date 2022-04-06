@@ -2,18 +2,26 @@
   "name": "flashcards",
   "version": "0.0.0",
   "license": "MIT",
+  "author": "Michael Schertenleib <michael@michaelschertenleib.com>",
   "scripts": {
     "start": "nx run-many --target=serve --all",
-    "build": "nx run-many --target=build --all",
-    "test": "nx run-many --target=test --all"
+    "test": "nx run-many --target=test --all",
+    "lint": "nx run-many --target=lint --all --fix",
+    "build": "nx run-many --target=build --all && cp -r prisma/ dist/apps/server/"
   },
   "private": true,
+  "engines": {
+    "node": ">=16.10.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@nrwl/nx-cloud": "^13.2.2",
+    "@prisma/client": "^3.12.0",
     "core-js": "^3.6.5",
+    "prisma": "^3.12.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "reflect-metadata": "^0.1.13",
@@ -49,6 +57,7 @@
     "eslint-plugin-jsx-a11y": "6.5.1",
     "eslint-plugin-react": "7.29.3",
     "eslint-plugin-react-hooks": "4.3.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "jest": "27.2.3",
     "nx": "13.9.7",
     "prettier": "^2.5.1",

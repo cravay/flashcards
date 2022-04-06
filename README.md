@@ -2,91 +2,81 @@
 
 [![CI](https://github.com/cravay/flashcards/actions/workflows/ci.yml/badge.svg)](https://github.com/cravay/flashcards/actions/workflows/ci.yml)
 
-This project was generated using [Nx](https://nx.dev).
+Flashcards is a basic full stack [TypeScript](https://www.typescriptlang.org/) application which allows users to manage
+and learn [flashcards](https://en.wikipedia.org/wiki/Flashcard). It consists of a [NestJS](https://nestjs.com/) server
+and a [React](https://reactjs.org/) client. This Repository is managed using the [Nx](https://nx.dev/) build system.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+## Quickstart
 
-🔎 **Smart, Fast and Extensible Build System**
+- Install [Git](https://git-scm.com/), [Docker](https://www.docker.com/) and [Node 16 LTS](https://nodejs.org/)
+- Clone this repo: `git clone git@github.com:cravay/flashcards.git`
+- Install dependencies: `npm install`
+- Create .env file and edit its values: `cp .env.example .env`
+- Start Postgres database: `docker compose -p flashcards -f docker-compose.dev.yml up -d`
+- Apply database migrations: `npx prisma migrate dev`
+- Start this app: `npm start`
 
-## Adding capabilities to your workspace
+The following apps will be started:
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+- Client: http://localhost:4200
+- Server: http://localhost:3333/api
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+## Commonly used scripts
 
-Below are our core plugins:
+- Start: `npm start`
+- Test: `npm test`
+- Lint: `npm run lint`
+- Build: `npm run build`
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+## Repository Structure
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+```
+flashcards/
+├─ apps/
+│  ├─ client/ <-- The React client app
+│  ├─ server/ <-- The NestJS server app
+├─ libs/
+│  ├─ shared/ <-- Types and utility functions shared between apps
+├─ prisma/
+   ├─ schema.prisma <-- The database schema
+   ├─ migrations/ <-- Database migrations
+```
 
-## Generate an application
+Also see `npx nx dep-graph`.
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+<!-- Generated using: https://tree.nathanfriend.io/?s=(%27options!(%27fancy!true~fullPath!false~trailingSlash!true~rootDot!false)~2(%272%27flashcards*apps3client3server*libs3shared*0schema.0migrations%27)~version!%271%27)*%5Cn--%20%200prisma32source!3*-%01320-* -->
 
-> You can use any of the plugins above to generate applications as well.
+## Database
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+Data is persisted in a [PostgreSQL](https://www.postgresql.org/) Database which is accessed and managed using the [Primsa ORM](https://www.prisma.io/).
+The data in the database can be viewed using [Prisma studio](https://www.prisma.io/studio): `npx prisma studio`.
 
-## Generate a library
+## Continuous Integration / Deployment
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+Every time a commit is pushed to the main branch, this project gets linted, tested and built using
+the [GitHub Action](https://github.com/features/actions) defined in [ci.yml](https://github.com/cravay/flashcards/blob/main/.github/workflows/ci.yml).
+ALl the outputs get cached using [Nx Cloud](https://nx.app/) to the [flashcard organization](https://nx.app/orgs/624ddb8a81e08f00053c551c/workspaces/624ddbbc2a9400251c0f601f)
+and builds get pushed to the [client-build](https://github.com/cravay/flashcards/tree/client-build)
+and the [server-build](https://github.com/cravay/flashcards/tree/server-build) branches.
 
-> You can also use any of the plugins above to generate libraries as well.
+The project gets deployed to the [render](https://render.com/) cloud. Every time a build is pushed to a build branch it
+gets automatically deployed. The following services have been manually created:
 
-Libraries are shareable across libraries and applications. They can be imported from `@flashcards/mylib`.
+- Static Site: https://flashcards-7vuj.onrender.com/
+- Node Web Service: https://flashcards-server.onrender.com/api
+- PostgreSQL Database
 
-## Development server
+## Relevant documentation
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+- https://www.typescriptlang.org/docs/
+- https://nx.dev/getting-started/intro
+- https://docs.nestjs.com/
+- https://www.prisma.io/docs/
+- https://github.com/colinhacks/zod
+- https://reactjs.org/docs/getting-started.html
+- https://redux-toolkit.js.org/usage/usage-guide
+- https://mantine.dev/getting-started/
 
-## Code scaffolding
+## License
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+[MIT](./LICENSE)

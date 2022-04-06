@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { PrismaService } from '../database/prisma.service';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -9,15 +10,15 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [AppService, { provide: PrismaService, useValue: class {} }],
     }).compile();
   });
 
   describe('getData', () => {
-    it('should return "Welcome to server!"', () => {
+    it('should return "Welcome to flashcards-server!"', () => {
       const appController = app.get<AppController>(AppController);
       expect(appController.getData()).toEqual({
-        message: 'Welcome to server!',
+        message: 'Welcome to flashcards-server!',
       });
     });
   });

@@ -1,0 +1,15 @@
+{
+  "name": "flashcards-server",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "Michael Schertenleib <michael@michaelschertenleib.com>",
+  "scripts": {
+    "prestart": "prisma generate && prisma migrate deploy",
+    "start": "node main.js"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=16.10.0",
+    "npm": ">=8.0.0"
+  }
+}

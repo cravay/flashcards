@@ -23,7 +23,7 @@ jobs:
           REPO: self
           BRANCH: client-build
           FOLDER: dist/apps/client
-          SQUASH_HISTORY: true
+          SKIP_EMPTY_COMMITS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: push server build to "server-build" branch
         uses: s0/git-publish-subdir-action@develop
@@ -31,5 +31,5 @@ jobs:
           REPO: self
           BRANCH: server-build
           FOLDER: dist/apps/server
-          SQUASH_HISTORY: true
+          SKIP_EMPTY_COMMITS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
