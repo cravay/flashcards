@@ -28,7 +28,7 @@ The following apps will be started:
 - Lint: `npm run lint`
 - Build: `npm run build`
 
-## Repository Structure
+## Project Structure
 
 ```
 flashcards/
@@ -55,9 +55,9 @@ The data in the database can be viewed using [Prisma studio](https://www.prisma.
 
 Every time a commit is pushed to the main branch, this project gets linted, tested and built using
 the [GitHub Action](https://github.com/features/actions) defined in [ci.yml](https://github.com/cravay/flashcards/blob/main/.github/workflows/ci.yml).
-ALl the outputs get cached using [Nx Cloud](https://nx.app/) to the [flashcard organization](https://nx.app/orgs/624ddb8a81e08f00053c551c/workspaces/624ddbbc2a9400251c0f601f)
+All the outputs get cached using [Nx Cloud](https://nx.app/) ([in this organization](https://nx.app/orgs/624ddb8a81e08f00053c551c/workspaces/624ddbbc2a9400251c0f601f))
 and builds get pushed to the [client-build](https://github.com/cravay/flashcards/tree/client-build)
-and the [server-build](https://github.com/cravay/flashcards/tree/server-build) branches.
+branch and the [server-build](https://github.com/cravay/flashcards/tree/server-build) branch.
 
 The project gets deployed to the [render](https://render.com/) cloud. Every time a build is pushed to a build branch it
 gets automatically deployed. The following services have been manually created:
