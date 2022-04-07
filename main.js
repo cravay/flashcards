@@ -53,13 +53,14 @@ exports.AppModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const database_module_1 = __webpack_require__("./apps/server/src/database/database.module.ts");
+const health_module_1 = __webpack_require__("./apps/server/src/health/health.module.ts");
 const app_controller_1 = __webpack_require__("./apps/server/src/app/app.controller.ts");
 const app_service_1 = __webpack_require__("./apps/server/src/app/app.service.ts");
 let AppModule = class AppModule {
 };
 AppModule = (0, tslib_1.__decorate)([
     (0, common_1.Module)({
-        imports: [database_module_1.DatabaseModule],
+        imports: [database_module_1.DatabaseModule, health_module_1.HealthModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
@@ -152,6 +153,108 @@ exports.PrismaService = PrismaService;
 
 /***/ }),
 
+/***/ "./apps/server/src/health/health.controller.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.HealthController = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const terminus_1 = __webpack_require__("@nestjs/terminus");
+const prisma_health_indicator_1 = __webpack_require__("./apps/server/src/health/prisma.health-indicator.ts");
+let HealthController = class HealthController {
+    constructor(health, prismaHealthIndicator) {
+        this.health = health;
+        this.prismaHealthIndicator = prismaHealthIndicator;
+    }
+    check() {
+        return this.health.check([
+            () => this.prismaHealthIndicator.isHealthy('database'),
+        ]);
+    }
+};
+(0, tslib_1.__decorate)([
+    (0, common_1.Get)(),
+    (0, terminus_1.HealthCheck)(),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", []),
+    (0, tslib_1.__metadata)("design:returntype", void 0)
+], HealthController.prototype, "check", null);
+HealthController = (0, tslib_1.__decorate)([
+    (0, common_1.Controller)('health'),
+    (0, tslib_1.__metadata)("design:paramtypes", [typeof (_a = typeof terminus_1.HealthCheckService !== "undefined" && terminus_1.HealthCheckService) === "function" ? _a : Object, typeof (_b = typeof prisma_health_indicator_1.PrismaHealthIndicator !== "undefined" && prisma_health_indicator_1.PrismaHealthIndicator) === "function" ? _b : Object])
+], HealthController);
+exports.HealthController = HealthController;
+
+
+/***/ }),
+
+/***/ "./apps/server/src/health/health.module.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.HealthModule = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const terminus_1 = __webpack_require__("@nestjs/terminus");
+const database_module_1 = __webpack_require__("./apps/server/src/database/database.module.ts");
+const health_controller_1 = __webpack_require__("./apps/server/src/health/health.controller.ts");
+const prisma_health_indicator_1 = __webpack_require__("./apps/server/src/health/prisma.health-indicator.ts");
+let HealthModule = class HealthModule {
+};
+HealthModule = (0, tslib_1.__decorate)([
+    (0, common_1.Module)({
+        imports: [database_module_1.DatabaseModule, terminus_1.TerminusModule],
+        providers: [prisma_health_indicator_1.PrismaHealthIndicator],
+        controllers: [health_controller_1.HealthController],
+    })
+], HealthModule);
+exports.HealthModule = HealthModule;
+
+
+/***/ }),
+
+/***/ "./apps/server/src/health/prisma.health-indicator.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PrismaHealthIndicator = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const terminus_1 = __webpack_require__("@nestjs/terminus");
+const prisma_service_1 = __webpack_require__("./apps/server/src/database/prisma.service.ts");
+// From https://stackoverflow.com/a/71445270
+let PrismaHealthIndicator = class PrismaHealthIndicator extends terminus_1.HealthIndicator {
+    constructor(prismaService) {
+        super();
+        this.prismaService = prismaService;
+    }
+    isHealthy(key) {
+        return (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+            try {
+                yield this.prismaService.$queryRaw `SELECT 1`;
+                return this.getStatus(key, true);
+            }
+            catch (e) {
+                throw new terminus_1.HealthCheckError('Prisma check failed', e);
+            }
+        });
+    }
+};
+PrismaHealthIndicator = (0, tslib_1.__decorate)([
+    (0, common_1.Injectable)(),
+    (0, tslib_1.__metadata)("design:paramtypes", [typeof (_a = typeof prisma_service_1.PrismaService !== "undefined" && prisma_service_1.PrismaService) === "function" ? _a : Object])
+], PrismaHealthIndicator);
+exports.PrismaHealthIndicator = PrismaHealthIndicator;
+
+
+/***/ }),
+
 /***/ "@nestjs/common":
 /***/ ((module) => {
 
@@ -163,6 +266,13 @@ module.exports = require("@nestjs/common");
 /***/ ((module) => {
 
 module.exports = require("@nestjs/core");
+
+/***/ }),
+
+/***/ "@nestjs/terminus":
+/***/ ((module) => {
+
+module.exports = require("@nestjs/terminus");
 
 /***/ }),
 
