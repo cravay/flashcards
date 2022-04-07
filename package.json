@@ -1,12 +1,25 @@
 {
-  "name": "server",
-  "version": "0.0.1",
+  "name": "flashcards-server",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "Michael Schertenleib <michael@michaelschertenleib.com>",
+  "scripts": {
+    "prestart": "prisma generate && prisma migrate deploy",
+    "start": "node main.js"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=16.10.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
     "@nestjs/core": "^8.0.0",
-    "@nestjs/platform-express": "^8.0.0"
+    "@nestjs/platform-express": "^8.0.0",
+    "@prisma/client": "^3.12.0",
+    "prisma": "^3.12.0"
   },
   "main": "main.js"
 }

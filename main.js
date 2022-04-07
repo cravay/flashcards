@@ -6,7 +6,7 @@
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -19,16 +19,25 @@ let AppController = class AppController {
     getData() {
         return this.appService.getData();
     }
+    getCards() {
+        return this.appService.getCards();
+    }
 };
 (0, tslib_1.__decorate)([
     (0, common_1.Get)(),
     (0, tslib_1.__metadata)("design:type", Function),
     (0, tslib_1.__metadata)("design:paramtypes", []),
-    (0, tslib_1.__metadata)("design:returntype", void 0)
+    (0, tslib_1.__metadata)("design:returntype", Object)
 ], AppController.prototype, "getData", null);
+(0, tslib_1.__decorate)([
+    (0, common_1.Get)('cards'),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", []),
+    (0, tslib_1.__metadata)("design:returntype", typeof (_a = typeof Promise !== "undefined" && Promise) === "function" ? _a : Object)
+], AppController.prototype, "getCards", null);
 AppController = (0, tslib_1.__decorate)([
     (0, common_1.Controller)(),
-    (0, tslib_1.__metadata)("design:paramtypes", [typeof (_a = typeof app_service_1.AppService !== "undefined" && app_service_1.AppService) === "function" ? _a : Object])
+    (0, tslib_1.__metadata)("design:paramtypes", [typeof (_b = typeof app_service_1.AppService !== "undefined" && app_service_1.AppService) === "function" ? _b : Object])
 ], AppController);
 exports.AppController = AppController;
 
@@ -43,13 +52,14 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
+const database_module_1 = __webpack_require__("./apps/server/src/database/database.module.ts");
 const app_controller_1 = __webpack_require__("./apps/server/src/app/app.controller.ts");
 const app_service_1 = __webpack_require__("./apps/server/src/app/app.service.ts");
 let AppModule = class AppModule {
 };
 AppModule = (0, tslib_1.__decorate)([
     (0, common_1.Module)({
-        imports: [],
+        imports: [database_module_1.DatabaseModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
@@ -63,19 +73,81 @@ exports.AppModule = AppModule;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
+const prisma_service_1 = __webpack_require__("./apps/server/src/database/prisma.service.ts");
 let AppService = class AppService {
+    constructor(prisma) {
+        this.prisma = prisma;
+    }
     getData() {
-        return { message: 'Welcome to server!' };
+        return { message: 'Welcome to flashcards-server!' };
+    }
+    getCards() {
+        return this.prisma.card.findMany();
     }
 };
 AppService = (0, tslib_1.__decorate)([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    (0, tslib_1.__metadata)("design:paramtypes", [typeof (_a = typeof prisma_service_1.PrismaService !== "undefined" && prisma_service_1.PrismaService) === "function" ? _a : Object])
 ], AppService);
 exports.AppService = AppService;
+
+
+/***/ }),
+
+/***/ "./apps/server/src/database/database.module.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DatabaseModule = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const prisma_service_1 = __webpack_require__("./apps/server/src/database/prisma.service.ts");
+let DatabaseModule = class DatabaseModule {
+};
+DatabaseModule = (0, tslib_1.__decorate)([
+    (0, common_1.Module)({
+        providers: [prisma_service_1.PrismaService],
+        exports: [prisma_service_1.PrismaService],
+    })
+], DatabaseModule);
+exports.DatabaseModule = DatabaseModule;
+
+
+/***/ }),
+
+/***/ "./apps/server/src/database/prisma.service.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PrismaService = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const client_1 = __webpack_require__("@prisma/client");
+let PrismaService = class PrismaService extends client_1.PrismaClient {
+    onModuleInit() {
+        return (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+            yield this.$connect();
+        });
+    }
+    enableShutdownHooks(app) {
+        return (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+            this.$on('beforeExit', () => (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+                yield app.close();
+            }));
+        });
+    }
+};
+PrismaService = (0, tslib_1.__decorate)([
+    (0, common_1.Injectable)()
+], PrismaService);
+exports.PrismaService = PrismaService;
 
 
 /***/ }),
@@ -91,6 +163,13 @@ module.exports = require("@nestjs/common");
 /***/ ((module) => {
 
 module.exports = require("@nestjs/core");
+
+/***/ }),
+
+/***/ "@prisma/client":
+/***/ ((module) => {
+
+module.exports = require("@prisma/client");
 
 /***/ }),
 
