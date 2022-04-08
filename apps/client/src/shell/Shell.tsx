@@ -14,7 +14,7 @@ import React from 'react';
 import { ColorSchemeToggleButton } from '../common/color-scheme/ColorSchemeToggleButton';
 import { textWithEllipsis } from '../common/styles';
 import { MainLinks } from './MainLinks';
-import { User } from './User';
+import { UserMenu } from './UserMenu';
 
 interface ShellProps {
   children: React.ReactNode;
@@ -41,7 +41,7 @@ export default function Shell(props: ShellProps): JSX.Element {
             <MainLinks />
           </Navbar.Section>
           <Navbar.Section>
-            <User />
+            <UserMenu />
           </Navbar.Section>
         </Navbar>
       }

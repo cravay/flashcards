@@ -1,5 +1,6 @@
-import { ColorSchemeProvider, MantineProvider, Text } from '@mantine/core';
+import { ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 import { useRootColorScheme } from '../common/color-scheme/useRootColorScheme';
 import Shell from '../shell/Shell';
@@ -14,9 +15,7 @@ export default function App(): JSX.Element {
         toggleColorScheme={toggleColorScheme}
       >
         <Shell>
-          <Text size="xl" weight="bold" color="dimmed">
-            Let's study some flashcards!
-          </Text>
+          <Outlet />
         </Shell>
       </ColorSchemeProvider>
     </MantineProvider>

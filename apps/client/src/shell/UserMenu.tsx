@@ -5,7 +5,7 @@ import { ChevronRight } from 'tabler-icons-react';
 import { textWithEllipsis } from '../common/styles';
 
 // Based on https://github.com/mantinedev/mantine/blob/master/src/mantine-demos/src/demos/core/AppShell/_user.tsx
-export function User(): JSX.Element {
+export function UserMenu(): JSX.Element {
   const profile = {
     name: 'Michael Schertenleib',
     avatar: 'https://avatars.githubusercontent.com/u/11135559?v=4',

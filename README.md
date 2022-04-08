@@ -76,6 +76,8 @@ gets automatically deployed. The following services have been manually created:
 - https://reactjs.org/docs/getting-started.html
 - https://redux-toolkit.js.org/usage/usage-guide
 - https://mantine.dev/getting-started/
+- https://tabler-icons-react.vercel.app/
+- https://reactrouter.com/docs/en/v6
 
 ## License
 
