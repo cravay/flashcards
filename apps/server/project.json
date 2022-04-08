@@ -11,7 +11,10 @@
         "main": "apps/server/src/main.ts",
         "tsConfig": "apps/server/tsconfig.app.json",
         "generatePackageJson": true,
-        "assets": ["apps/server/src/assets"]
+        "assets": [
+          "apps/server/src/assets",
+          { "input": "prisma", "glob": "**/*", "output": "prisma" }
+        ]
       },
       "configurations": {
         "production": {

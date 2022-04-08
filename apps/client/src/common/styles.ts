@@ -1,6 +1,6 @@
-import { Sx } from '@mantine/core';
+import { CSSObject } from '@mantine/core';
 
-export const textWithEllipsis: Sx = {
+export const textWithEllipsis: CSSObject = {
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',

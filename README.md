@@ -1,4 +1,4 @@
-# 📝 Flashcards
+# Flashcards
 
 [![CI](https://github.com/cravay/flashcards/actions/workflows/ci.yml/badge.svg)](https://github.com/cravay/flashcards/actions/workflows/ci.yml)
 
@@ -19,7 +19,7 @@ and a [React](https://reactjs.org/) client. This Repository is managed using the
 The following apps will be started:
 
 - Client: http://localhost:4200
-- Server: http://localhost:3333/api
+- Server: http://localhost:3333
 
 ## Commonly used scripts
 
@@ -63,7 +63,7 @@ The project gets deployed to the [render](https://render.com/) cloud. Every time
 gets automatically deployed. The following services have been manually created:
 
 - Static Site: https://flashcards-7vuj.onrender.com/
-- Node Web Service: https://flashcards-server.onrender.com/api
+- Node Web Service: https://flashcards-server.onrender.com/
 - PostgreSQL Database
 
 ## Relevant documentation

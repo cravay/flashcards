@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "client": "apps/client",
-    "server": "apps/server"
+    "server": "apps/server",
+    "shared": "libs/shared"
   }
 }
