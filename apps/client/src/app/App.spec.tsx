@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import App from './app';
+import App from './App';
 
 describe('App', () => {
   it('should render successfully', () => {
@@ -9,9 +9,9 @@ describe('App', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should have a greeting as the title', () => {
+  it('should show an emoji the heading', () => {
     const { getByText } = render(<App />);
 
-    expect(getByText(/Welcome client/i)).toBeTruthy();
+    expect(getByText(/📝/)).toBeTruthy();
   });
 });

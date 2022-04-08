@@ -1,4 +1,4 @@
-# Flashcards
+# 📝 Flashcards
 
 [![CI](https://github.com/cravay/flashcards/actions/workflows/ci.yml/badge.svg)](https://github.com/cravay/flashcards/actions/workflows/ci.yml)
 
@@ -38,7 +38,7 @@ flashcards/
 ├─ libs/
 │  ├─ shared/ <-- Types and utility functions shared between apps
 ├─ prisma/
-   ├─ schema.prisma <-- The database schema
+   ├─ schema.prisma <-- Database schema
    ├─ migrations/ <-- Database migrations
 ```
 
