@@ -19,7 +19,7 @@ and a [React](https://reactjs.org/) client. This Repository is managed using the
 The following apps will be started:
 
 - Client: http://localhost:4200
-- Server: http://localhost:3333
+- Server: http://localhost:3333 (Swagger-UI: http://localhost:3333/api)
 
 ## Commonly used scripts
 
