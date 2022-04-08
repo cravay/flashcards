@@ -54,13 +54,14 @@ const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const database_module_1 = __webpack_require__("./apps/server/src/database/database.module.ts");
 const health_module_1 = __webpack_require__("./apps/server/src/health/health.module.ts");
+const user_module_1 = __webpack_require__("./apps/server/src/user/user.module.ts");
 const app_controller_1 = __webpack_require__("./apps/server/src/app/app.controller.ts");
 const app_service_1 = __webpack_require__("./apps/server/src/app/app.service.ts");
 let AppModule = class AppModule {
 };
 AppModule = (0, tslib_1.__decorate)([
     (0, common_1.Module)({
-        imports: [database_module_1.DatabaseModule, health_module_1.HealthModule],
+        imports: [database_module_1.DatabaseModule, health_module_1.HealthModule, user_module_1.UserModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
@@ -149,6 +150,20 @@ PrismaService = (0, tslib_1.__decorate)([
     (0, common_1.Injectable)()
 ], PrismaService);
 exports.PrismaService = PrismaService;
+
+
+/***/ }),
+
+/***/ "./apps/server/src/environments/environment.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.environment = void 0;
+exports.environment = {
+    production: false,
+    corsOrigin: 'http://localhost:4200',
+};
 
 
 /***/ }),
@@ -255,6 +270,107 @@ exports.PrismaHealthIndicator = PrismaHealthIndicator;
 
 /***/ }),
 
+/***/ "./apps/server/src/user/user.controller.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UserController = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const user_service_1 = __webpack_require__("./apps/server/src/user/user.service.ts");
+let UserController = class UserController {
+    constructor(userService) {
+        this.userService = userService;
+    }
+    findMany() {
+        return this.userService.findMany();
+    }
+    findOne(id) {
+        return this.userService.findOne(id);
+    }
+};
+(0, tslib_1.__decorate)([
+    (0, common_1.Get)(),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", []),
+    (0, tslib_1.__metadata)("design:returntype", typeof (_a = typeof Promise !== "undefined" && Promise) === "function" ? _a : Object)
+], UserController.prototype, "findMany", null);
+(0, tslib_1.__decorate)([
+    (0, common_1.Get)(':id'),
+    (0, tslib_1.__param)(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    (0, tslib_1.__metadata)("design:type", Function),
+    (0, tslib_1.__metadata)("design:paramtypes", [Number]),
+    (0, tslib_1.__metadata)("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+], UserController.prototype, "findOne", null);
+UserController = (0, tslib_1.__decorate)([
+    (0, common_1.Controller)('users'),
+    (0, tslib_1.__metadata)("design:paramtypes", [typeof (_c = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" ? _c : Object])
+], UserController);
+exports.UserController = UserController;
+
+
+/***/ }),
+
+/***/ "./apps/server/src/user/user.module.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UserModule = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const database_module_1 = __webpack_require__("./apps/server/src/database/database.module.ts");
+const user_controller_1 = __webpack_require__("./apps/server/src/user/user.controller.ts");
+const user_service_1 = __webpack_require__("./apps/server/src/user/user.service.ts");
+let UserModule = class UserModule {
+};
+UserModule = (0, tslib_1.__decorate)([
+    (0, common_1.Module)({
+        imports: [database_module_1.DatabaseModule],
+        controllers: [user_controller_1.UserController],
+        providers: [user_service_1.UserService],
+    })
+], UserModule);
+exports.UserModule = UserModule;
+
+
+/***/ }),
+
+/***/ "./apps/server/src/user/user.service.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UserService = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const prisma_service_1 = __webpack_require__("./apps/server/src/database/prisma.service.ts");
+let UserService = class UserService {
+    constructor(prisma) {
+        this.prisma = prisma;
+    }
+    findMany() {
+        return this.prisma.user.findMany();
+    }
+    findOne(id) {
+        return this.prisma.user.findUnique({
+            where: { id },
+            rejectOnNotFound: () => new common_1.NotFoundException(),
+        });
+    }
+};
+UserService = (0, tslib_1.__decorate)([
+    (0, common_1.Injectable)(),
+    (0, tslib_1.__metadata)("design:paramtypes", [typeof (_a = typeof prisma_service_1.PrismaService !== "undefined" && prisma_service_1.PrismaService) === "function" ? _a : Object])
+], UserService);
+exports.UserService = UserService;
+
+
+/***/ }),
+
 /***/ "@nestjs/common":
 /***/ ((module) => {
 
@@ -331,14 +447,14 @@ const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const core_1 = __webpack_require__("@nestjs/core");
 const app_module_1 = __webpack_require__("./apps/server/src/app/app.module.ts");
+const environment_1 = __webpack_require__("./apps/server/src/environments/environment.ts");
 function bootstrap() {
     return (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
-        const globalPrefix = 'api';
-        app.setGlobalPrefix(globalPrefix);
         const port = process.env.PORT || 3333;
+        app.enableCors({ origin: environment_1.environment.corsOrigin });
         yield app.listen(port);
-        common_1.Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
+        common_1.Logger.log(`🚀 Application is running on: http://localhost:${port}`);
     });
 }
 bootstrap().catch(common_1.Logger.error);
