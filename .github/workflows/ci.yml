@@ -16,6 +16,8 @@ jobs:
       - run: npx nx format:check
       - run: npx nx affected:lint --base=origin/main~1 --head=origin/main
       - run: npx nx affected:test --base=origin/main~1 --head=origin/main
+      - name: Workaround for Nx tree shaking issues (see README.md)
+        run: sed --in-place s/sideEffects:\ false/sideEffects:\ true/ node_modules/\@nrwl/web/src/utils/config.js
       - run: npm run build
       - name: Push client build to "client-build" branch
         uses: s0/git-publish-subdir-action@develop

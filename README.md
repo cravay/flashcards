@@ -66,6 +66,21 @@ gets automatically deployed. The following services have been manually created:
 - Node Web Service: https://flashcards-server.onrender.com/
 - PostgreSQL Database
 
+## Tree-Shaking issues
+
+Due to the bug [nrwl/nx#9717](https://github.com/nrwl/nx/issues/9717) tree-shaking currently doesn't work for client builds. For some reason unknown to me, the [side effects optimization of webpack](https://webpack.js.org/configuration/optimization/#optimizationsideeffects) got disabled for Nx 12. There's a [PR to reenable them](https://github.com/nrwl/nx/pull/8296), but until that gets merged the side effects optimization can get manually re-enabled like this (This reduces the bundle size by over 90%):
+
+```bash
+sed --in-place s/sideEffects:\ false/sideEffects:\ true/ node_modules/\@nrwl/web/src/utils/config.js
+```
+
+The bundle of a client build can get analyzed using [source-map-explorer](https://github.com/danvk/source-map-explorer) like this:
+
+```bash
+nx build client --source-map
+npx source-map-explorer dist/apps/client/main.*.js
+```
+
 ## Relevant documentation
 
 - https://www.typescriptlang.org/docs/

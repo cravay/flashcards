@@ -12,7 +12,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { bufferLogs: true });
   const port = process.env.PORT || 3333;
 
   app.enableCors({ origin: environment.corsOrigin });

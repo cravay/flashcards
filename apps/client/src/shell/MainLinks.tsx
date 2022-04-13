@@ -1,7 +1,7 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
+import { IconSchool, IconStack2, IconUsers } from '@tabler/icons';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { School, Stack2, Users } from 'tabler-icons-react';
 
 // Based on https://github.com/mantinedev/mantine/blob/master/src/mantine-demos/src/demos/core/AppShell/_mainLinks.tsx
 interface MainLinkProps {
@@ -56,19 +56,19 @@ function MainLink({ icon, color, label, link }: MainLinkProps): JSX.Element {
 
 const data: MainLinkProps[] = [
   {
-    icon: <Stack2 size={16} />,
+    icon: <IconStack2 size={16} />,
     color: 'teal',
     label: 'Flashcard Decks',
     link: '/decks',
   },
   {
-    icon: <School size={16} />,
+    icon: <IconSchool size={16} />,
     color: 'rebeccapurple',
     label: 'Study',
     link: '/study',
   },
   {
-    icon: <Users size={16} />,
+    icon: <IconUsers size={16} />,
     color: 'grape',
     label: 'Users',
     link: '/users',

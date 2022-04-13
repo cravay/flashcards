@@ -1,5 +1,5 @@
 import { UserDto } from '@flashcards/shared';
-import { Box, LoadingOverlay, SimpleGrid } from '@mantine/core';
+import { Box, LoadingOverlay, SimpleGrid, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
 import { environment } from '../environments/environment';
@@ -17,6 +17,8 @@ export function Users(): JSX.Element {
   return (
     <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
       <LoadingOverlay visible={!users} overlayColor="transparent" zIndex={1} />
+      <Title pb="xl">Users</Title>
+
       <SimpleGrid
         cols={3}
         breakpoints={[

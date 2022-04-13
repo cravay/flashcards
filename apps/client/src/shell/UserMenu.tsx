@@ -1,6 +1,5 @@
 import { Avatar, Box, Group, Text, UnstyledButton } from '@mantine/core';
-import React from 'react';
-import { ChevronRight } from 'tabler-icons-react';
+import { IconChevronRight } from '@tabler/icons';
 
 import { textWithEllipsis } from '../common/styles';
 
@@ -51,7 +50,7 @@ export function UserMenu(): JSX.Element {
             </Text>
           </Box>
 
-          <ChevronRight size={18} />
+          <IconChevronRight size={18} />
         </Group>
       </UnstyledButton>
     </Box>
