@@ -8,18 +8,18 @@ and a [React](https://reactjs.org/) client. This Repository is managed using the
 
 ## Quickstart
 
-- Install [Git](https://git-scm.com/), [Docker](https://www.docker.com/) and [Node 16 LTS](https://nodejs.org/)
+- Install [Git](https://git-scm.com/), [Docker](https://www.docker.com/) (or [Podman](https://podman.io/)) and [Node 16 LTS](https://nodejs.org/)
 - Clone this repo: `git clone git@github.com:cravay/flashcards.git`
 - Install dependencies: `npm install`
-- Create .env file and edit its values: `cp .env.example .env`
+- Create .env file: `cp .env.example .env` (`copy` on Windows)
 - Start Postgres database: `docker compose -p flashcards -f docker-compose.dev.yml up -d`
-- Apply database migrations: `npx prisma migrate dev`
-- Start this app: `npm start`
+- Apply database migrations and run seed script: `npx prisma migrate dev`
+- Start everything: `npm start`
 
 The following apps will be started:
 
-- Client: http://localhost:4200
-- Server: http://localhost:3333 (Swagger-UI: http://localhost:3333/api)
+- Client: <http://localhost:4200>
+- Server: <http://localhost:3333> (Swagger-UI: <http://localhost:3333/api>)
 
 ## Commonly used scripts
 
@@ -30,7 +30,7 @@ The following apps will be started:
 
 ## Project Structure
 
-```
+```text
 flashcards/
 ├─ apps/
 │  ├─ client/ <-- The React client app
@@ -62,13 +62,16 @@ branch and the [server-build](https://github.com/cravay/flashcards/tree/server-b
 The project gets deployed to the [render](https://render.com/) cloud. Every time a build is pushed to a build branch it
 gets automatically deployed. The following services have been manually created:
 
-- Static Site: https://flashcards-7vuj.onrender.com/
-- Node Web Service: https://flashcards-server.onrender.com/
+- Static Site: <https://flashcards-7vuj.onrender.com/>
+- Node Web Service: <https://flashcards-server.onrender.com/>
 - PostgreSQL Database
 
 ## Tree-Shaking issues
 
-Due to the bug [nrwl/nx#9717](https://github.com/nrwl/nx/issues/9717) tree-shaking currently doesn't work for client builds. For some reason unknown to me, the [side effects optimization of webpack](https://webpack.js.org/configuration/optimization/#optimizationsideeffects) got disabled for Nx 12. There's a [PR to reenable them](https://github.com/nrwl/nx/pull/8296), but until that gets merged the side effects optimization can get manually re-enabled like this (This reduces the bundle size by over 90%):
+Due to the bug [nrwl/nx#9717](https://github.com/nrwl/nx/issues/9717) tree-shaking currently doesn't work for client builds. 
+For some reason unknown to me, the [side effects optimization of webpack](https://webpack.js.org/configuration/optimization/#optimizationsideeffects)
+got disabled for Nx 12. There's a [PR to reenable it](https://github.com/nrwl/nx/pull/8296), but until that gets merged 
+the side effects optimization can get manually re-enabled like this (This reduces the bundle size by over 90%):
 
 ```bash
 sed --in-place s/sideEffects:\ false/sideEffects:\ true/ node_modules/\@nrwl/web/src/utils/config.js
@@ -83,16 +86,15 @@ npx source-map-explorer dist/apps/client/main.*.js
 
 ## Relevant documentation
 
-- https://www.typescriptlang.org/docs/
-- https://nx.dev/getting-started/intro
-- https://docs.nestjs.com/
-- https://www.prisma.io/docs/
-- https://github.com/colinhacks/zod
-- https://reactjs.org/docs/getting-started.html
-- https://redux-toolkit.js.org/usage/usage-guide
-- https://mantine.dev/getting-started/
-- https://tabler-icons-react.vercel.app/
-- https://reactrouter.com/docs/en/v6
+- <https://www.typescriptlang.org/docs/>
+- <https://nx.dev/getting-started/intro>
+- <https://docs.nestjs.com/>
+- <https://www.prisma.io/docs/>
+- <https://github.com/colinhacks/zod> / <https://colinhacks.com/essays/zod>
+- <https://reactjs.org/docs/getting-started.html>
+- <https://redux-toolkit.js.org/usage/usage-guide>
+- <https://mantine.dev/getting-started/>
+- <https://reactrouter.com/docs/en/v6>
 
 ## License
 

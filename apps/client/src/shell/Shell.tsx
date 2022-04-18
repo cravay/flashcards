@@ -10,6 +10,7 @@ import {
 } from '@mantine/core';
 import { useBooleanToggle, useHotkeys } from '@mantine/hooks';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { ColorSchemeToggleButton } from '../common/color-scheme/ColorSchemeToggleButton';
 import { textWithEllipsis } from '../common/styles';
@@ -38,7 +39,7 @@ export default function Shell(props: ShellProps): JSX.Element {
           width={{ sm: 300, lg: 300 }}
         >
           <Navbar.Section grow>
-            <MainLinks />
+            <MainLinks onClick={() => toggleOpened()} />
           </Navbar.Section>
           <Navbar.Section>
             <UserMenu />
@@ -62,7 +63,13 @@ export default function Shell(props: ShellProps): JSX.Element {
                 />
               </MediaQuery>
 
-              <Text mr="md" weight="bold" sx={textWithEllipsis}>
+              <Text
+                component={Link}
+                to="/"
+                mr="md"
+                weight="bold"
+                sx={textWithEllipsis}
+              >
                 <span
                   role="img"
                   style={{ marginRight: 8 }}

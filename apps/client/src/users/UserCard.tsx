@@ -1,6 +1,5 @@
 import { UserDto } from '@flashcards/shared';
 import { Avatar, Box, Card, Group, Text } from '@mantine/core';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { textWithEllipsis } from '../common/styles';

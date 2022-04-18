@@ -1,6 +1,6 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
 import { IconSchool, IconStack2, IconUsers } from '@tabler/icons';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // Based on https://github.com/mantinedev/mantine/blob/master/src/mantine-demos/src/demos/core/AppShell/_mainLinks.tsx
@@ -9,13 +9,21 @@ interface MainLinkProps {
   color: string;
   label: string;
   link: string;
+  onClick: () => void;
 }
 
-function MainLink({ icon, color, label, link }: MainLinkProps): JSX.Element {
+function MainLink({
+  icon,
+  color,
+  label,
+  link,
+  onClick,
+}: MainLinkProps): JSX.Element {
   return (
     <UnstyledButton
       component={NavLink}
       to={link}
+      onClick={() => onClick()}
       sx={(theme) => ({
         display: 'block',
         width: '100%',
@@ -54,7 +62,7 @@ function MainLink({ icon, color, label, link }: MainLinkProps): JSX.Element {
   );
 }
 
-const data: MainLinkProps[] = [
+const data: Omit<MainLinkProps, 'onClick'>[] = [
   {
     icon: <IconStack2 size={16} />,
     color: 'teal',
@@ -75,12 +83,14 @@ const data: MainLinkProps[] = [
   },
 ];
 
-export function MainLinks(): JSX.Element {
-  return (
-    <>
-      {data.map((link) => (
-        <MainLink {...link} key={link.label} />
-      ))}
-    </>
-  );
+export class MainLinks extends React.Component<{ onClick: () => void }> {
+  override render(): ReactNode {
+    return (
+      <>
+        {data.map((link) => (
+          <MainLink {...link} onClick={this.props.onClick} key={link.label} />
+        ))}
+      </>
+    );
+  }
 }

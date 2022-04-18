@@ -1,5 +1,4 @@
 import { ColorSchemeProvider, MantineProvider } from '@mantine/core';
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { useRootColorScheme } from '../common/color-scheme/useRootColorScheme';

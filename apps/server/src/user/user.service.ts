@@ -1,5 +1,5 @@
+import { UserDto } from '@flashcards/shared';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { User } from '@prisma/client';
 
 import { PrismaService } from '../database/prisma.service';
 
@@ -7,11 +7,11 @@ import { PrismaService } from '../database/prisma.service';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  findMany(): Promise<User[]> {
-    return this.prisma.user.findMany();
+  findMany(): Promise<UserDto[]> {
+    return this.prisma.user.findMany({ orderBy: { name: 'asc' } });
   }
 
-  findOne(id: number): Promise<User> {
+  findOne(id: number): Promise<UserDto> {
     return this.prisma.user.findUnique({
       where: { id },
       rejectOnNotFound: () => new NotFoundException(),

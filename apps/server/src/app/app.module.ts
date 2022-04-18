@@ -5,6 +5,7 @@ import { LoggerModule } from 'nestjs-pino';
 
 import { CardModule } from '../card/card.module';
 import { DatabaseModule } from '../database/database.module';
+import { DeckModule } from '../deck/deck.module';
 import { HealthModule } from '../health/health.module';
 import { UserModule } from '../user/user.module';
 import { AppController } from './app.controller';
@@ -17,6 +18,7 @@ import { AppService } from './app.service';
     LoggerModule.forRoot(),
     UserModule,
     CardModule,
+    DeckModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_PIPE, useClass: ZodValidationPipe }],

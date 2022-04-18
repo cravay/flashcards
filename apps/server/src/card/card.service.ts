@@ -1,5 +1,5 @@
+import { CardDto } from '@flashcards/shared';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Card } from '@prisma/client';
 
 import { PrismaService } from '../database/prisma.service';
 
@@ -7,11 +7,11 @@ import { PrismaService } from '../database/prisma.service';
 export class CardService {
   constructor(private prisma: PrismaService) {}
 
-  findMany(): Promise<Card[]> {
+  findMany(): Promise<CardDto[]> {
     return this.prisma.card.findMany();
   }
 
-  findOne(id: number): Promise<Card> {
+  findOne(id: number): Promise<CardDto> {
     return this.prisma.card.findUnique({
       where: { id },
       rejectOnNotFound: () => new NotFoundException(),
