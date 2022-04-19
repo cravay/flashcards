@@ -13,7 +13,8 @@ and a [React](https://reactjs.org/) client. This Repository is managed using the
 - Install dependencies: `npm install`
 - Create .env file: `cp .env.example .env` (`copy` on Windows)
 - Start Postgres database: `docker compose -p flashcards -f docker-compose.dev.yml up -d`
-- Apply database migrations and run seed script: `npx prisma migrate dev`
+- Apply database migrations: `npx prisma migrate dev`
+- Run seed script: `npx prisma db seed`
 - Start everything: `npm start`
 
 The following apps will be started:
